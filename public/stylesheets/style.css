@@ -31,3 +31,17 @@ header, nav, section, footer {
 nav span {
 	margin: 0px 10px 0px 0px;
 }
+
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 25px;
+	height: 0;
+}
+.videoWrapper iframe {
+	position: center;
+	top: 0;
+	left: 0;
+	width: 250px;
+	height: 150px;
+}
