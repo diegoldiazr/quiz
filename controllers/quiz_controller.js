@@ -21,7 +21,7 @@ exports.answer = function(req, res){
 				quiz: quiz,
 				respuesta: 'Correcto',
 				linkText: 'vuelva a jugar',
-				link: '/quizes/question'
+				link: '/quizes/index'
 			});
 		} else {
 			res.render('quizes/answer', {
@@ -29,7 +29,7 @@ exports.answer = function(req, res){
 				quiz: quiz,
 				respuesta: 'Incorrecto',
 				linkText: 'intentelo otra vez',
-				link: '/quizes/question'
+				link: '/quizes/'+ quiz.id +'/question'
 			});
 		}
 	});	
