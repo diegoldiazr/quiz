@@ -1,6 +1,16 @@
 //incluimos el acceso al modelo de DB
 var models = require('../models/models.js');
 
+//GET /quizes/
+exports.index = function(req, res){
+	models.Quiz.findAll().then(function(quizes){
+		res.render('quizes/index', {
+			title: 'Quiz',
+			quizes: quizes
+		});
+	});	
+};
+
 //GET /quizes/:id
 exports.show = function(req, res){
 	models.Quiz.find(req.params.quizId).then(function(quiz){
