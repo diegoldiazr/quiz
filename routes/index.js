@@ -12,10 +12,8 @@ router.get('/author', function(req, res) {
   res.render('author', { title: 'Quiz' });
 });
 
-/* GET home page. */
-router.get('/quizes/question', quizControllers.question);
-
-/* GET home page. */
-router.get('/quizes/answer', quizControllers.answer);
+router.get('/quizes'), 						quizControllers.index);
+router.get('/quizes/:quizId(\\d+)', 		quizControllers.show);
+router.get('/quizes/:quizId(\\d+)/answer', 	quizControllers.answer);
 
 module.exports = router;
