@@ -12,7 +12,7 @@ router.get('/author', function(req, res) {
   res.render('author', { title: 'Quiz' });
 });
 
-router.get('/quizes/index', 				quizControllers.index);
+router.get('/quizes/showAll', 				quizControllers.showAll);
 router.get('/quizes/:quizId(\\d+)', 		quizControllers.show);
 router.get('/quizes/:quizId(\\d+)/answer', 	quizControllers.answer);
 

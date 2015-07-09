@@ -2,9 +2,9 @@
 var models = require('../models/models.js');
 
 //GET /quizes/
-exports.index = function(req, res){
+exports.showAll = function(req, res){
 	models.Quiz.findAll().then(function(quizes){
-		res.render('quizes/index', {
+		res.render('quizes/showAll', {
 			title: 'Quiz',
 			quizes: quizes
 		});
@@ -31,7 +31,7 @@ exports.answer = function(req, res){
 				quiz: quiz,
 				respuesta: 'Correcto',
 				linkText: 'vuelva a jugar',
-				link: '/quizes/index'
+				link: '/quizes/showAll'
 			});
 		} else {
 			res.render('quizes/answer', {
