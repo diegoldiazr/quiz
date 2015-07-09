@@ -39,7 +39,7 @@ exports.answer = function(req, res){
 				quiz: quiz,
 				respuesta: 'Incorrecto',
 				linkText: 'intentelo otra vez',
-				link: '/quizes/'+ quiz.id +'/question'
+				link: '/quizes/'+ quiz.id 
 			});
 		}
 	});	
