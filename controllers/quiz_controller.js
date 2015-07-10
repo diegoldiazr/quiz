@@ -26,7 +26,7 @@ exports.showAll = function(req, res){
 			order: [['pregunta', 'ASC']]
 		}).then(
 			function(quizes){
-				res.render('quizes/showAll', {
+				res.render('quizes', {
 					title: 'Quiz',
 					quizes: quizes
 				});
@@ -34,7 +34,7 @@ exports.showAll = function(req, res){
 	}else{
 		models.Quiz.findAll().then(
 			function(quizes){
-				res.render('quizes/showAll', {
+				res.render('quizes', {
 					title: 'Quiz',
 					quizes: quizes
 				});
@@ -60,7 +60,7 @@ exports.answer = function(req, res){
 			quiz: req.quiz,
 			respuesta: 'Correcto',
 			linkText: 'vuelva a jugar',
-			link: '/quizes/showAll'
+			link: '/quizes'
 		});
 	} else {
 		res.render('quizes/answer', {
