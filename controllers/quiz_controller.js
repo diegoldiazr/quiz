@@ -17,14 +17,30 @@ exports.load = function(req, res, next, quizId){
 
 //GET /quizes/
 exports.showAll = function(req, res){
-	models.Quiz.findAll().then(
-		function(quizes){
-			res.render('quizes/showAll', {
-				title: 'Quiz',
-				quizes: quizes
-			});
-		}
-	).catch(function(error){next(error);});	
+	var filtro = req.query.search;
+	var condicion = ('%' + filtro + '%').replace(/ /g, '%');
+
+	if (filtro){
+		models.Quiz.findAll({
+			where: ["pregunta like ?", condicion],
+			order: [['pregunta', 'ASC']]
+		}).then(
+			function(quizes){
+				res.render('quizes/showAll', {
+					title: 'Quiz',
+					quizes: quizes
+				});
+			}).catch(function(error){next(error);});
+	}else{
+		models.Quiz.findAll().then(
+			function(quizes){
+				res.render('quizes/showAll', {
+					title: 'Quiz',
+					quizes: quizes
+				});
+			}
+		).catch(function(error){next(error);});	
+	}
 };
 
 //GET /quizes/:id
