@@ -52,7 +52,7 @@ exports.answer = function(req, res){
 			quiz: req.quiz,
 			respuesta: 'Incorrecto',
 			linkText: 'intentelo otra vez',
-			link: '/quizes/'+ quiz.id 
+			link: '/quizes/'+ req.quiz.id 
 		});
 	}
 };
