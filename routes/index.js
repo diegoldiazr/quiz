@@ -1,5 +1,5 @@
 var express = require('express');
-var quizControllers = require('../controllers/quiz_controller');
+var quizController = require('../controllers/quiz_controller');
 var router = express.Router();
 
 
@@ -12,8 +12,11 @@ router.get('/author', function(req, res) {
   res.render('author', { title: 'Quiz' });
 });
 
-router.get('/quizes/showAll', 				quizControllers.showAll);
-router.get('/quizes/:quizId(\\d+)', 		quizControllers.show);
-router.get('/quizes/:quizId(\\d+)/answer', 	quizControllers.answer);
+//Autoload de comandos con :quizId
+router.param('quizId', quizController.load);
+
+router.get('/quizes/showAll', 				quizController.showAll);
+router.get('/quizes/:quizId(\\d+)', 		quizController.show);
+router.get('/quizes/:quizId(\\d+)/answer', 	quizController.answer);
 
 module.exports = router;
