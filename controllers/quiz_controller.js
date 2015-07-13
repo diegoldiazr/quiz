@@ -72,3 +72,13 @@ exports.answer = function(req, res){
 		});
 	}
 };
+
+
+//get new
+exports.new = function(req, res){
+	var quiz = models.Quiz.build(
+			{pregunta: "Pregunta",
+			respuesta: "Respuesta"}
+		);
+	res.render('quizes/new', {quiz:quiz});
+};
