@@ -26,7 +26,7 @@ exports.showAll = function(req, res){
 			order: [['pregunta', 'ASC']]
 		}).then(
 			function(quizes){
-				res.render('quizes', {
+				res.render('quizes/showAll', {
 					title: 'Quiz',
 					quizes: quizes
 				});
@@ -34,7 +34,7 @@ exports.showAll = function(req, res){
 	}else{
 		models.Quiz.findAll().then(
 			function(quizes){
-				res.render('quizes', {
+				res.render('quizes/showAll', {
 					title: 'Quiz',
 					quizes: quizes
 				});
@@ -88,5 +88,5 @@ exports.create = function(req, res){
 	var quiz = models.Quiz.build(req.body.quiz);
 	quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
 		res.redirect('/quizes');
-	});
+	})
 };
