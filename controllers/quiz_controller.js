@@ -135,3 +135,11 @@ exports.update = function(req, res){
 		}
 	});	
 };
+
+//delete DELETE
+exports.delete = function(req, res){
+	//borramos
+	req.quiz.destroy().then(function(){
+		res.redirect('/quizes');
+	}).catch(function(error){next(error);});
+};
