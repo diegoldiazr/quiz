@@ -36,9 +36,9 @@ exports.Quiz = Quiz;
 //sequelize.sync() crea e inicializa la tabla de preguntas en DB
 //esta forma de usar el callback con success esta deprecado, ahora
 //se usan las promesas.
-sequelize.sync().success(function(){
+sequelize.sync().then(function(){
 	//success(..) ejecuta el manejador una vez creada la tabla
-	Quiz.count().success(function (count) {
+	Quiz.count().then(function (count) {
 		if(count===0){//inicializamos la tabla solo si esta vacia
 			Quiz.create({
 				pregunta: 'Capital de Italia',

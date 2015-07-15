@@ -3,7 +3,7 @@ var models = require('../models/models.js');
 
 //Autoload - factoriza el codigo si ruta incluye :quizId
 exports.load = function(req, res, next, quizId){
-	models.Quiz.find(quizId).then(
+	models.Quiz.findById(quizId).then(
 		function(quiz){
 			if (quiz){
 				req.quiz = quiz;
@@ -28,7 +28,8 @@ exports.showAll = function(req, res){
 			function(quizes){
 				res.render('quizes/showAll', {
 					title: 'Quiz',
-					quizes: quizes
+					quizes: quizes,
+					errors: []
 				});
 			}).catch(function(error){next(error);});
 	}else{
@@ -36,7 +37,8 @@ exports.showAll = function(req, res){
 			function(quizes){
 				res.render('quizes/showAll', {
 					title: 'Quiz',
-					quizes: quizes
+					quizes: quizes,
+					errors: []
 				});
 			}
 		).catch(function(error){next(error);});	
@@ -47,7 +49,8 @@ exports.showAll = function(req, res){
 exports.show = function(req, res){	
 	res.render('quizes/show', {
 		title: 'Quiz',
-		quiz: req.quiz
+		quiz: req.quiz,
+		errors: []		
 	});
 };
 
@@ -60,7 +63,8 @@ exports.answer = function(req, res){
 			quiz: req.quiz,
 			respuesta: 'Correcto',
 			linkText: 'vuelva a jugar',
-			link: '/quizes'
+			link: '/quizes',
+			errors: []
 		});
 	} else {
 		res.render('quizes/answer', {
@@ -68,7 +72,8 @@ exports.answer = function(req, res){
 			quiz: req.quiz,
 			respuesta: 'Incorrecto',
 			linkText: 'intentelo otra vez',
-			link: '/quizes/'+ req.quiz.id 
+			link: '/quizes/'+ req.quiz.id,
+			errors: []
 		});
 	}
 };
@@ -77,18 +82,30 @@ exports.answer = function(req, res){
 //get new
 exports.new = function(req, res){
 	var quiz = models.Quiz.build(
-			{pregunta: "Pregunta",
-			respuesta: "Respuesta"}
+			{pregunta: "",
+			respuesta: ""}
 		);
-	res.render('quizes/new', {quiz:quiz});
+	res.render('quizes/new', {quiz:quiz, errors: []});
 };
 
 //post create
 exports.create = function(req, res){
 	var quiz = models.Quiz.build(req.body.quiz);
+	
+	console.log("hola prueba-----------------");
+	console.log("valor de quiz: " + quiz);
+	console.log("valor de validate: " + quiz.validate());
 
-	console.log(quiz);
-	quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
-		res.redirect('/quizes');
+	//validamos
+	quiz.validate().then(function(err){
+		if (err){
+			res.render('quizes/new', {quiz:quiz, errors:err.errors});
+		}else{
+			quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
+				res.redirect('/quizes');
+			});		
+		}
 	});
+
+	
 };
