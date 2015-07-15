@@ -105,7 +105,33 @@ exports.create = function(req, res){
 				res.redirect('/quizes');
 			});		
 		}
-	});
+	});	
+};
 
+//get EDIT
+exports.edit = function(req, res){	
+	res.render('quizes/edit', {
+		title: 'Quiz',
+		quiz: req.quiz,	
+		errors: []
+	});
+};
+
+//put UPDATE
+exports.update = function(req, res){
+
+	req.quiz.pregunta = req.body.quiz.pregunta;
+	req.quiz.respuesta = req.body.quiz.respuesta;
 	
+	
+	//validamos
+	req.quiz.validate().then(function(err){
+		if (err){
+			res.render('quizes/edit', {quiz:quiz, errors:err.errors});
+		}else{
+			req.quiz.save({fields: ["pregunta", "respuesta"]}).then(function(){
+				res.redirect('/quizes');
+			});		
+		}
+	});	
 };
