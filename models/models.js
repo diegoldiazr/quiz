@@ -33,6 +33,17 @@ var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
 //exportar la definicion de tabla quiz
 exports.Quiz = Quiz;
 
+//Importar la definicion de la tabla Comment en comment.js
+var Comment = sequelize.import(path.join(__dirname, 'comment'));
+
+//indicar la relacion 1-N
+Comment.belongsTo(Quiz);
+Quiz.hasMany(Comment);
+
+//exportar la definicion de tabla comment
+exports.Comment = Comment;
+
+
 //sequelize.sync() crea e inicializa la tabla de preguntas en DB
 //esta forma de usar el callback con success esta deprecado, ahora
 //se usan las promesas.
