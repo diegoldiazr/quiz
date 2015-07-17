@@ -34,3 +34,11 @@ exports.destroy = function(req, res){
 	res.redirect(req.session.redir.toString()); //redirect a path anterior a login
 	
 }
+
+exports.loginRequired = function(req, res){
+	if (req.session.user){
+		next();
+	}else{
+		res.redirect('/login');
+	}
+}
