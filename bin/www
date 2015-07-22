@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var debug = require('debug')('quiz');
 var app = require('../app');
-var fs = require('fs');
+var fs = require('fs'); //permite leer ficheros
 var https = require('https');
 
 var options = {

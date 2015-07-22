@@ -1,3 +1,11 @@
+exports.loginRequired = function(req, res, next){
+	if (req.session.user){
+		next();
+	}else{
+		res.redirect('/login');
+	}
+}
+
 //get login
 exports.new = function(req, res){
 	var errors = req.session.errors || {};
@@ -35,10 +43,3 @@ exports.destroy = function(req, res){
 	
 }
 
-exports.loginRequired = function(req, res){
-	if (req.session.user){
-		next();
-	}else{
-		res.redirect('/login');
-	}
-}
